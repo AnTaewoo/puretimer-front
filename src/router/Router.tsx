@@ -6,6 +6,9 @@ import Signin from "@/pages/signin/Signin";
 import Signup from "@/pages/signup/Signup";
 import DashBoardLayout from "@/layouts/DashBoardLayout";
 import DashBoard from "@/pages/dashboard/DashBoard";
+import Study from "@/pages/study/Study";
+import Setting from "@/pages/setting/Setting";
+import Mypage from "@/pages/mypage/Mypage";
 
 export const router = createBrowserRouter([
   {
@@ -22,8 +25,13 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
+    path: "dashboard",
     element: <DashBoardLayout />,
-    children: [{ path: "", element: <DashBoard /> }],
+    children: [
+      { path: ":path", element: <DashBoard /> }, 
+      { path: "study", element: <Study /> }, 
+      { path: "mypage", element: <Mypage /> },
+      { path: "settings", element: <Setting /> },
+    ],
   }
 ]);

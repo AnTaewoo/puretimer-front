@@ -8,13 +8,16 @@ interface returnType {
 
 const useFetchApi = async (_data:any, apiDetail: string,method:MethodType, api:string) : Promise<returnType> => {
   try {
-    const response = await fetch(api+apiDetail, {
+    const fetchData = {
       method: method,
       headers: {
         "Content-Type": "application/json",
-      },
-      body: JSON.stringify({..._data}),
-    });
+      }
+    }
+    if (method !== "GET" && method !== "DELETE")
+      fetchData["body"] = JSON.stringify({..._data})
+
+    const response = await fetch(api+apiDetail, fetchData);
     const data = await response.json();
     return data;
   } catch (error) {

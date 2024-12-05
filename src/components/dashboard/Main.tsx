@@ -1,6 +1,6 @@
 export default function Main() {
   return (
-    <div className="">
+    <div className="bg-black">
       
     </div>
   );

@@ -1,3 +1,2 @@
-export {default as ASide} from './ASide';
-export {default as Main} from './Main';
-export {default as Mypage} from './Mypage';
+export {default as Main} from '@/components/dashboard/Main';
+export {default as Profile} from '@/components/dashboard/Profile';

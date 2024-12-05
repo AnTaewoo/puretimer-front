@@ -1,13 +1,19 @@
-import { number } from "prop-types";
 import { createContext, useRef } from "react";
 
-const LandingContext = createContext({
-  scrollRef: useRef<HTMLDivElement[] | null>([]),
-  handleScrollView: (index: number) => {},
+
+interface LandingContextType {
+  scrollRef: React.RefObject<HTMLDivElement[]>; // useRef 타입 정의
+  handleScrollView: (index: number) => void;
+}
+
+// 초기값은 null로 설정
+const LandingContext = createContext<LandingContextType>({
+  scrollRef: { current: [] },
+  handleScrollView: () => {},
 });
 
 export const LandingContextProvider = (props: any) => {
-  const scrollRef = useRef<HTMLDivElement[]>([]);
+  const scrollRef = useRef<HTMLDivElement[] | null>([]);
 
   const handleScrollView = (index: number) => {
     if (scrollRef.current[index] && index != 0) {
