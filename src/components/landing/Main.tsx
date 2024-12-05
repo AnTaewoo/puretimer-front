@@ -1,5 +1,4 @@
 import bgImage from "@/assets/landing/background.png";
-import mouseImg from "@/assets/landing/mouse.png";
 import { Button } from "@/components/ui/shadcn/button";
 import { LandingContext } from "@/provider/context";
 import { useContext } from "react";
