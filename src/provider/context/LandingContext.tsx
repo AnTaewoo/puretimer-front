@@ -1,7 +1,8 @@
+import { number } from "prop-types";
 import { createContext, useRef } from "react";
 
 const LandingContext = createContext({
-  scrollRef: useRef<HTMLDivElement[]>([]),
+  scrollRef: useRef<HTMLDivElement[] | null>([]),
   handleScrollView: (index: number) => {},
 });
 
