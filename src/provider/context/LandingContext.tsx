@@ -1,12 +1,12 @@
 import { createContext, useRef } from "react";
 
 const LandingContext = createContext({
-  scrollRef: [],
+  scrollRef: useRef<HTMLDivElement[]>([]),
   handleScrollView: (index: number) => {},
 });
 
 export const LandingContextProvider = (props: any) => {
-  const scrollRef = useRef([]);
+  const scrollRef = useRef<HTMLDivElement[]>([]);
 
   const handleScrollView = (index: number) => {
     if (scrollRef.current[index] && index != 0) {
