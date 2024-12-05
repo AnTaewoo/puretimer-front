@@ -1,18 +1,18 @@
-type boolType = "true" | "false" | "null";
+type emailType = string | "null";
 
 export function IsLogin () {
   const isLoginSet = localStorage.getItem("isLogin");
 
-  if (isLoginSet === "true") {
+  if (isLoginSet) {
     return true;
   } else {
     return false;
   }
 }
 
-export function setIsLogin (bool: boolType) {
+export function setIsLogin (uuid: emailType) {
   try {
-    localStorage.setItem("isLogin", bool);
+    localStorage.setItem("isLogin", uuid);
 
     return true;
   } catch (e) {

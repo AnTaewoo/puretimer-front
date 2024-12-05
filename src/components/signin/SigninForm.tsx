@@ -49,7 +49,7 @@ export default function SigninForm() {
       const result = await useFetchApi({...data},"login","POST","http://127.0.0.1:5000/");
 
       if (result.status === 200) {
-        setIsLogin("true");
+        setIsLogin(result.data.uuid);
         setUserData(result.data);
         
         nav('/dashboard');

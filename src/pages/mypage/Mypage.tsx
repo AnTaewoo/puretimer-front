@@ -1,7 +1,7 @@
 export default function Mypage() {
   return (
-    <div className="">
-      
+    <div className="bg-blue-900">
+        1
     </div>
-  );
+  )
 }

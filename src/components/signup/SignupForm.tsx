@@ -50,12 +50,16 @@ export default function SignupForm() {
     if (isSignup) {
       const result = await useFetchApi({...data},"create","POST","http://127.0.0.1:5000/");
       
-      if (result) {
+      if (result.status === 200) {
         alert("회원가입 성공!");
         nav('/auth/signin');
         return;
+      } else if (result.status === 404) {
+        alert("이미 존재하는 이메일입니다.");
+        return;
       } else {
         alert("알 수 없는 오류로 회원가입에 실패했습니다.");
+        return;
       }
     } else {
       return;
