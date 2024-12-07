@@ -8,8 +8,6 @@ interface returnType {
 
 
 const useFetchApi = async (_data:any, apiDetail: string,method:MethodType) : Promise<returnType> => {
-  const apiUrl =  process.env.VITE_API_KEY;
-  console.log(apiUrl+apiDetail)
   try {
     const fetchData = {
       method: method,
@@ -20,7 +18,7 @@ const useFetchApi = async (_data:any, apiDetail: string,method:MethodType) : Pro
     if (method !== "GET" && method !== "DELETE")
       fetchData["body"] = JSON.stringify({..._data})
 
-    const response = await fetch(apiUrl+apiDetail, fetchData);
+    const response = await fetch("/api/"+apiDetail, fetchData);
     const data = await response.json();
     return data;
   } catch (error) {
