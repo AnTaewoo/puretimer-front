@@ -1,7 +1,7 @@
 export default function Main() {
   return (
-    <div className="bg-black">
-      
+    <div className="w-full grow">
+     hi
     </div>
-  );
+  )
 }

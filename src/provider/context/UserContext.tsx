@@ -1,4 +1,5 @@
 import useFetchApi from "@/hooks/useFetchApi";
+import { IsLogin } from "@/hooks/useLogin";
 import { createContext, SetStateAction, useEffect, useState, Dispatch } from "react";
 
 interface UserData {
@@ -8,8 +9,6 @@ interface UserData {
   created: string;
   updated: string;
 }
-
-const api = "http://127.0.0.1:5000/";
 
 const UserContext = createContext({
   userData : {
@@ -32,10 +31,10 @@ export const UserContextProvider = (props: any) => {
   });
 
   useEffect(() => {
-    const uuid = localStorage.getItem("isLogin");
+    const uuid = IsLogin();
 
     const getUserData = async () => {
-      const response = await useFetchApi({}, "read/"+uuid, "GET", api);
+      const response = await useFetchApi({}, "read/"+uuid, "GET");
       setUserData(response.data);
     }
     if (uuid) {

@@ -2,6 +2,7 @@ import bgImage from "@/assets/landing/background.png";
 import { Button } from "@/components/ui/shadcn/button";
 import { LandingContext } from "@/provider/context";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 export default function Main() {
   const handleScrollView = useContext(LandingContext).handleScrollView;
@@ -29,7 +30,9 @@ export default function Main() {
             className="h-full hover:scale-105  hover:text-slate-50 transition-all mt-16 border-white border-2 bg-white rounded-full w-40"
             variant="default"
           >
-            <p className="text-base font-bold p-2">Start!</p>
+            <Link to="/dashboard" className="w-full h-full">
+              <p className="text-base font-bold p-2">Start!</p>
+            </Link>
           </Button>
           <Button
             className="h-full text-slate-50 hover:scale-105  hover:text-slate-50 transition-all mt-16 border-white border-2 rounded-full w-40"
