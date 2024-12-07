@@ -1,43 +1,57 @@
+import { delIsLogin } from "@/hooks/useLogin";
 import { BookOpenIcon, HomeIcon, LogOutIcon, Settings2Icon, User2Icon } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, } from "react-router-dom";
 
 interface AsideList {
   title: string;
   icon: JSX.Element;
-  link: string;
+  onClick: () => void, 
 }
 
-const asideList: AsideList[] = [
-  {
-    title: 'Home',
-    icon: <HomeIcon />,
-    link: '/dashboard',
-  },
-  {
-    title: 'Study',
-    icon: <BookOpenIcon />,
-    link: '/dashboard/study',
-  },
-  {
-    title: 'Mypage',
-    icon: <User2Icon />,
-    link: '/dashboard/mypage',
-  },
-  {
-    title: 'Settings',
-    icon: <Settings2Icon />,
-    link: '/dashboard/settings',
-  },
-  {
-    title: 'Logout',
-    icon: <LogOutIcon />,
-    link: '',
-  },
-];
-
 export function ASide() {
-  const {path} = useParams()
-  
+  const nav = useNavigate();
+
+  const asideList: AsideList[] = [
+    {
+      title: 'Home',
+      icon: <HomeIcon />,
+      onClick: () => {
+        nav("/dashboard")
+      }, 
+    },
+    {
+      title: 'Study',
+      icon: <BookOpenIcon />,
+      onClick: () => {
+        nav("/dashboard/study")
+      }, 
+    },
+    {
+      title: 'Mypage',
+      icon: <User2Icon />,
+      onClick: () => {
+        nav("/dashboard/mypage")
+      }, 
+    },
+    {
+      title: 'Settings',
+      icon: <Settings2Icon />,
+      onClick: () => {nav("/dashboard/settings")}
+    },
+    {
+      title: 'Logout',
+      icon: <LogOutIcon />,
+      onClick: () => {
+        if ( confirm("정말 로그아웃 하시겠습니까?") === true ) {
+          delIsLogin();
+          return nav("/");
+        } else {
+          return;
+        }
+      },
+    },
+  ];
+
   return (
     <div className="h-auto w-full p-5 bg-white">
       <li className="list-none w-auto h-auto my-5">
@@ -47,12 +61,10 @@ export function ASide() {
       </li>
       {asideList.map((item, index) => (
         <li className=" list-none w-full h-16" key={index}>
-          <Link to={item.link} className="flex items-center w-full h-full p-5 gap-6 text-2xl text-gray-800 hover:bg-gray-100 hover:font-semibold" style={{
-            fontWeight: path === item.link ? 'bold' : 'normal',
-          }}>
+          <button onClick={item.onClick} className="flex items-center w-full h-full p-5 gap-6 text-2xl text-gray-800 hover:bg-gray-100 hover:font-semibold" >
             {item.icon}
             <p>{item.title}</p>
-          </Link>
+          </button>
         </li>
       ))}
     </div>

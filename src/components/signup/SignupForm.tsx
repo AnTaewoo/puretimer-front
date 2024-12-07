@@ -48,7 +48,7 @@ export default function SignupForm() {
     data["password"] = await useCryptoValue(data.password);
 
     if (isSignup) {
-      const result = await useFetchApi({...data},"create","POST","http://127.0.0.1:5000/");
+      const result = await useFetchApi({...data},"create","POST");
       
       if (result.status === 200) {
         alert("회원가입 성공!");

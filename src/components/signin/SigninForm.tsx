@@ -46,7 +46,7 @@ export default function SigninForm() {
     data["password"] = await useCryptoValue(data.password);
 
     if (isSignup) {
-      const result = await useFetchApi({...data},"login","POST","http://127.0.0.1:5000/");
+      const result = await useFetchApi({...data},"login","POST");
 
       if (result.status === 200) {
         setIsLogin(result.data.uuid);

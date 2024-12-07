@@ -4,7 +4,7 @@ export function IsLogin () {
   const isLoginSet = localStorage.getItem("isLogin");
 
   if (isLoginSet) {
-    return true;
+    return isLoginSet;
   } else {
     return false;
   }
