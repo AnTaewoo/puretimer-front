@@ -1,9 +1,0 @@
-{
-  "version": 2,
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "http://52.79.201.20:8080/1$"
-    }
-  ]
-}
