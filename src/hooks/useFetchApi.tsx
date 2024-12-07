@@ -9,6 +9,7 @@ interface returnType {
 
 const useFetchApi = async (_data:any, apiDetail: string,method:MethodType) : Promise<returnType> => {
   const apiUrl =  process.env.VITE_API_KEY;
+  console.log(apiUrl+apiDetail)
   try {
     const fetchData = {
       method: method,
