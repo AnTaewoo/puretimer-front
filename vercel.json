@@ -1,14 +1,7 @@
 {
   "version": 2,
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "http://52.79.201.20:8080"
-    },
-    {
-      "rewrites": [
-        { "source": "/(.*)", "destination": "/" }
-      ]
-    }
+    { "source": "/api/(.*)", "destination": "http://52.79.201.20:8080/$1" },
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
