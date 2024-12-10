@@ -7,7 +7,7 @@ export default function DashBoard() {
       <Main />
     </div>
     <div className="w-1/3 min-w-80 h-full">
-      <Profile  />
+      <Profile />
     </div>
   </div>
   )

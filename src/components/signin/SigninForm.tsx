@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/shadcn/button";
 import { Input } from "@/components/ui/shadcn/input";
+import { useAlert } from "@/hooks/useAlert";
 import useCryptoValue from "@/hooks/useCryptoValue";
 import useFetchApi from "@/hooks/useFetchApi";
-import { setIsLogin } from "@/hooks/useLogin";
+import { setIsLogin } from "@/hooks/useLocalStorage";
 import { UserContext } from "@/provider/context";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -46,7 +47,7 @@ export default function SigninForm() {
     data["password"] = await useCryptoValue(data.password);
 
     if (isSignup) {
-      const result = await useFetchApi({...data},"login","POST");
+      const result = await useFetchApi({...data},"user/login","POST");
 
       if (result.status === 200) {
         setIsLogin(result.data.uuid);
@@ -55,9 +56,9 @@ export default function SigninForm() {
         nav('/dashboard');
         return;
       } else if (result.status === 404) {
-        alert("이메일 또는 비밀번호가 올바르지 않습니다"); 
+        useAlert("이메일 또는 비밀번호가 올바르지 않습니다", true);
       } else {
-        alert("알 수 없는 오류로 로그인에 실패했습니다.");
+        useAlert("알 수 없는 오류로 회원가입에 실패했습니다.", true);
       }
     } else {
       return;
@@ -73,10 +74,10 @@ export default function SigninForm() {
   
       switch (true) {
         case !isValidEmail:
-          alert("이메일 형식이 올바르지 않습니다.");
+          useAlert("이메일 형식이 올바르지 않습니다.", true);
           break;
         case !isValidPassword:
-          alert("비밀번호는 영문, 숫자를 포함한 8자 이상 20자 이하로 입력해주세요.");
+          useAlert("비밀번호는 영문, 숫자를 포함한 8자 이상 20자 이하로 입력해주세요.", true);
           break;
         default:
           return true;

@@ -1,4 +1,4 @@
-import { delIsLogin } from "@/hooks/useLogin";
+import { delIsLogin } from "@/hooks/useLocalStorage";
 import { BookOpenIcon, HomeIcon, LogOutIcon, Settings2Icon, User2Icon } from "lucide-react";
 import { Link, useNavigate, } from "react-router-dom";
 

@@ -4,6 +4,7 @@ import { Input } from "../ui/shadcn/input";
 import { useForm } from "react-hook-form"
 import useCryptoValue from "@/hooks/useCryptoValue";
 import useFetchApi from "@/hooks/useFetchApi";
+import { useAlert } from "@/hooks/useAlert";
 
 interface InputProps {
   type: string;
@@ -43,22 +44,23 @@ export default function SignupForm() {
   const {register, handleSubmit} = useForm();
   const nav = useNavigate();
 
+
   const onSubmit = async (data: any) => {
     const isSignup: boolean = signup(data)
     data["password"] = await useCryptoValue(data.password);
 
     if (isSignup) {
-      const result = await useFetchApi({...data},"create","POST");
+      const result = await useFetchApi({...data},"user/create","POST");
       
       if (result.status === 200) {
-        alert("회원가입 성공!");
+        useAlert("회원가입 성공!", false);
         nav('/auth/signin');
         return;
       } else if (result.status === 404) {
-        alert("이미 존재하는 이메일입니다.");
+        useAlert("이미 존재하는 이메일입니다.", true);
         return;
       } else {
-        alert("알 수 없는 오류로 회원가입에 실패했습니다.");
+        useAlert("알 수 없는 오류로 회원가입에 실패했습니다.", true);
         return;
       }
     } else {
@@ -77,13 +79,13 @@ export default function SignupForm() {
   
       switch (true) {
         case !isValidEmail:
-          alert("이메일 형식이 올바르지 않습니다.");
+          useAlert("이메일 형식이 올바르지 않습니다.", true);
           break;
         case !isValidPassword:
-          alert("비밀번호는 영문, 숫자를 포함한 8자 이상 20자 이하로 입력해주세요.");
+          useAlert("비밀번호는 영문, 숫자를 포함한 8자 이상 20자 이하로 입력해주세요.", true);
           break;
         case !isValidCurrentPassword:
-          alert("비밀번호가 일치하지 않습니다.");
+          useAlert("비밀번호가 일치하지 않습니다.", true);
           break;
         default:
           return true;

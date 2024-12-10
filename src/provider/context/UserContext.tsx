@@ -1,6 +1,6 @@
 import useFetchApi from "@/hooks/useFetchApi";
-import { IsLogin } from "@/hooks/useLogin";
-import { createContext, SetStateAction, useEffect, useState, Dispatch } from "react";
+import { IsLogin } from "@/hooks/useLocalStorage";
+import { createContext, SetStateAction, useEffect, useState } from "react";
 
 interface UserData {
   uuid: string;
@@ -19,6 +19,7 @@ const UserContext = createContext({
     updated: "",
   },
   setUserData: (value: SetStateAction<UserData>) => {},
+  getUserData: () => {},
 });
 
 export const UserContextProvider = (props: any) => {
@@ -30,13 +31,13 @@ export const UserContextProvider = (props: any) => {
     updated: "",
   });
 
-  useEffect(() => {
-    const uuid = IsLogin();
+  const uuid = IsLogin();
+  const getUserData = async () => {
+    const response = await useFetchApi({}, "user/read/"+uuid, "GET");
+    setUserData(response.data);
+  }
 
-    const getUserData = async () => {
-      const response = await useFetchApi({}, "read/"+uuid, "GET");
-      setUserData(response.data);
-    }
+  useEffect(() => {
     if (uuid) {
       getUserData();
     }
@@ -46,7 +47,8 @@ export const UserContextProvider = (props: any) => {
     <UserContext.Provider
       value={{
         userData: userData,
-        setUserData: setUserData
+        setUserData: setUserData,
+        getUserData: getUserData,
       }}
     >
       {props.children}
