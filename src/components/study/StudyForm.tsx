@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/shadcn/input";
-import { FormEventHandler, useContext, useRef } from "react";
+import { FormEvent, FormEventHandler, useContext, useRef } from "react";
 import { Button } from "../ui/shadcn/button";
 import { useAlert } from "@/hooks/useAlert";
 import { setIsDetect } from "@/hooks/useLocalStorage";
@@ -13,7 +13,7 @@ export default function StudyForm() {
   const setDetectData = useContext(DetectContext).setDetectData;
   const nav = useNavigate();
 
-  const onSubmit = (e: HTMLFormElement) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const subject = inputRef.current?.value.trim();
 
