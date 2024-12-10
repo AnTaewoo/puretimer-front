@@ -7,7 +7,7 @@ import { useContext } from "react";
 export default function Profile() {
   const userData = useContext(UserContext).userData;
   return (
-    <div className="w-full h-full flex flex-col p-10">
+    <div className="flex flex-col p-10">
       <div className="w-full h-auto flex gap-5 mb-10">
         <UserCircle2Icon className="w-16 h-16"/>
         <div className="w-full h-full flex flex-col justify-center gap-1">
