@@ -27,8 +27,8 @@ export default function Component({data, type}) {
   return (
     <Card>
       <CardContent>
-        <ChartContainer config={chartConfig}>
-        {(type == "bar" || !type) && <BarChart accessibilityLayer data={data}>
+        {(type == "bar" || !type) && <ChartContainer config={chartConfig}>
+          <BarChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="TIME"
@@ -45,9 +45,10 @@ export default function Component({data, type}) {
             />
             <Bar dataKey="realTime" fill="var(--color-realTime)" radius={4} />
             <Bar dataKey="wasteTime" fill="var(--color-wasteTime)" radius={4} />
-            
-          </BarChart>}
-          {type == "linear" && <LineChart
+          </BarChart>
+        </ChartContainer>}
+        {type == "linear" && <ChartContainer config={chartConfig}>
+          <LineChart
             accessibilityLayer
             data={data}
             margin={{
@@ -80,8 +81,10 @@ export default function Component({data, type}) {
               strokeWidth={2}
               dot={false}
             />
-          </LineChart>}
-        {(type == "tooltip") && <BarChart accessibilityLayer data={data}>
+          </LineChart>
+        </ChartContainer>}
+        {(type == "tooltip") && <ChartContainer config={chartConfig}>
+          <BarChart accessibilityLayer data={data}>
             <XAxis
               dataKey="TIME"
               tickLine={false}
@@ -108,8 +111,8 @@ export default function Component({data, type}) {
               cursor={false}
               defaultIndex={1}
             />
-          </BarChart>}
-        </ChartContainer>
+          </BarChart>
+        </ChartContainer>}
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
