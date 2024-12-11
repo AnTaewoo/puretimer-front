@@ -153,8 +153,6 @@ export default function DetectForm() {
               const { num_objects, confidences } = response.data;
               const isPhone = num_objects > 0 && confidences.some((confidence: number) => confidence > 0.5);
 
-              console.log(response.data)
-
               const handlePauseLogic = (_isPhone: boolean) => {
                 if (_isPhone) {
                   setIsPhone(true)
