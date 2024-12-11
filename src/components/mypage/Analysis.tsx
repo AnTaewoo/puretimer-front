@@ -70,13 +70,13 @@ export default function Analysis() {
 
   return (
     <div className="w-full h-auto flex flex-col items-center p-10">
-      {!postData ? <p className="text-[#8e8e8e] text-2xl opacity-50">Not Yet Post Data</p> : (
-        <div className="w-full h-auto p-10">
+      {postData.data.length !== 0 ? <div className="w-full h-auto p-10">
           <div className="w-full flex justify-end items-center">
             <SelectContainer onValueChange={setValueChange} />
           </div>
           <ChartView {...postData} />
-        </div>
+        </div> : (
+        <p className="text-[#8e8e8e] text-2xl opacity-50">Not Yet Post Data</p>
       )}
     </div>
   )
