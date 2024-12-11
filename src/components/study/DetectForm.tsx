@@ -86,7 +86,7 @@ export default function DetectForm() {
       const hours = String(date.getUTCHours()).padStart(2, "0"); // 24시간제
       const minutes = String(date.getUTCMinutes()).padStart(2, "0"); // 분
       const seconds = String(date.getUTCSeconds()).padStart(2, "0"); // 초
-      const timeZone = "KST"; // 시간대
+      const timeZone = "GMT"; // 시간대
     
       return `${dayName}, ${day} ${monthName} ${year} ${hours}:${minutes}:${seconds} ${timeZone}`;
     };
