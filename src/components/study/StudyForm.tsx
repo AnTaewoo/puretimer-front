@@ -1,16 +1,18 @@
 import { Input } from "@/components/ui/shadcn/input";
-import { FormEvent, FormEventHandler, useContext, useRef } from "react";
+import { FormEvent, FormEventHandler, useContext, useEffect, useRef, useState } from "react";
 import { Button } from "../ui/shadcn/button";
 import { useAlert } from "@/hooks/useAlert";
 import { setIsDetect } from "@/hooks/useLocalStorage";
 import { UserContext } from "@/provider/context";
 import DetectContext from "@/provider/context/DetectContext";
 import { useNavigate } from "react-router-dom";
+import useFetchApi from "@/hooks/useFetchApi";
 
 export default function StudyForm() {
   const inputRef =  useRef<HTMLInputElement | null>(null);
   const uuid = useContext(UserContext).userData.uuid;
   const setDetectData = useContext(DetectContext).setDetectData;
+  const [postData, setPostData]= useState(null);
   const nav = useNavigate();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -54,15 +56,31 @@ export default function StudyForm() {
       nav("/dashboard/study/detect");
     }
   }
+  
+  useEffect(() => {
+    const getPostData = async () => {
+      const response = await useFetchApi({}, "detect/read", "GET");
+      if (response.status === 200)
+        if (response.data)
+          setPostData(response.data.reverse());
+    }
+    if (uuid) {
+      getPostData();
+    }
+  }, []);
 
   return (
-    <form onSubmit={onSubmit} className="w-full h-full mx-auto flex flex-col items-center">
-      <div className="w-full h-full mb-20">
-        <Input type="text" placeholder="과목을 입력해 주세요." className="w-full h-full max-w-[600px] mx-auto font-bold rounded-xl p-5 !text-xl placeholder:text-slate-400 focus:border-[#2563eb] focus:border-2" required={true} ref={inputRef} />
-      </div>
-      <div className="w-full h-auto max-w-[700px] mx-auto">
-        <Button type="submit" className="w-full h-full bg-[#2563eb] hover:bg-[#1d4ed8] p-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2563eb] transition-colors rounded-xl text-slate-50 text-xl font-bold">공부 시작하기</Button>
-      </div>
-    </form>
+    <>
+    {postData &&  <form onSubmit={onSubmit} className="w-full h-full mx-auto flex flex-col items-center">
+        <div className="w-full h-full mb-20">
+          <Input type="text" placeholder="과목을 입력해 주세요." className="w-full h-full max-w-[600px] mx-auto font-bold rounded-xl p-5 !text-xl placeholder:text-slate-400 focus:border-[#2563eb] focus:border-2" required={true} ref={inputRef} />
+        </div>
+        <div className="w-full h-auto max-w-[700px] mx-auto">
+          <Button type="submit" className="w-full h-full bg-[#2563eb] hover:bg-[#1d4ed8] p-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2563eb] transition-colors rounded-xl text-slate-50 text-xl font-bold">공부 시작하기</Button>
+        </div>
+      </form>
+      }
+      {!postData && <p className="text-[#8e8e8e] text-2xl opacity-50">Not Yet Post Data</p>}
+    </>
   )
 }
