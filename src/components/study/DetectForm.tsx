@@ -105,7 +105,7 @@ export default function DetectForm() {
     };
 
     const deleteAccount = async (_data) => {
-      const result = await useFetchApi(_data, "/detect/upload", "POST");
+      const result = await useFetchApi(_data, "detect/upload", "POST");
   
       if (result.status === 200) {
         nav("/dashboard/mypage");
@@ -152,6 +152,8 @@ export default function DetectForm() {
               const response = await useFetchApi(blob, "detect/detect", "POST", "application/octet-stream");
               const { num_objects, confidences } = response.data;
               const isPhone = num_objects > 0 && confidences.some((confidence: number) => confidence > 0.5);
+
+              console.log(response.data)
 
               const handlePauseLogic = (_isPhone: boolean) => {
                 if (_isPhone) {
